@@ -8,12 +8,11 @@ public class resultSetPractice6 {
 			System.out.println("connected to database");
 			
 			Statement stmt = con.createStatement();
-			int value = stmt.executeUpdate("delete from students where student_id = 20");
+			ResultSet rs = stmt.executeQuery("select count(s.student_id), c.course_name from students s join enrollments e on s.student_id = e.student_id join courses c on c.course_id = e.course_id group by e.course_id");
 			
-			if(value!= 0) {
-				System.out.println("value added success fully");
+			while(rs.next()) {
+				System.out.println(rs.getInt(1) + "\t"+ rs.getString(2));
 			}
 		}
-		
 	} 
 }
